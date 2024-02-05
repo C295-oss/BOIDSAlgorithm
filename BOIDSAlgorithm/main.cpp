@@ -100,28 +100,6 @@ void updateBoidVel(std::vector<Boid>& boids, Boid& boid, sf::RenderWindow& windo
 		boid.Velocity.y += (pos_avg.y - boid.getPosition().y) * boid.centeringfactor +
 			(vel_avg.y - boid.Velocity.y) * boid.matchingfactor;
 
-		// Normalize velocity	
-
-		//if (speed > 0) {
-		//	boid.Velocity.x = (boid.Velocity.x / speed) * boid.maxspeed;
-		//	boid.Velocity.y = (boid.Velocity.y / speed) * boid.maxspeed;
-		//}
-
-		/*
-		speed = sqrt(boid.vx*boid.vx + boid.vy*boid.vy)
-
-		# Enforce min and max speeds
-		if speed < minspeed:
-			boid.vx = (boid.vx/speed)*minspeed
-			boid.vy = (boid.vy/speed)*minspeed
-		if speed > maxspeed:
-			boid.vx = (boid.vx/speed)*maxspeed
-			boid.vy = (boid.vy/speed)*maxspeed
-
-		# Update boid's position
-		boid.x = boid.x + boid.vx
-		boid.y = boid.y + boid.vy
-		*/
 	}
 	float speed = sqrt(boid.Velocity.x * boid.Velocity.x + boid.Velocity.y * boid.Velocity.y);
 
@@ -145,76 +123,6 @@ void updateBoidVel(std::vector<Boid>& boids, Boid& boid, sf::RenderWindow& windo
 	window.draw(boid);
 }
 
-/*
-void updateBoidVel(std::vector<Boid> &boids, Boid &boid, sf::RenderWindow& wind)
-{
-
-	sf::Vector2f pos_avg;
-	sf::Vector2f vel_avg;
-	sf::Vector2f close;
-	sf::Vector2f dist;
-	float neighboring = 0.0;
-	float squaredDist = 0.0;
-
-	for (auto& b : boids)
-	{
-		if (&b == &boid)
-			continue;
-
-		dist.x = boid.getPosition().x - b.getPosition().x;
-		dist.y = boid.getPosition().y - b.getPosition().y;
-
-		if (abs(dist.x) < boid.visualRange && 
-			abs(dist.y) < boid.visualRange)
-		{
-
-			squaredDist = dist.x * dist.x + dist.y * dist.y;
-			
-			if (squaredDist < boid.protectedRange)
-			{
-				close.x += boid.getPosition().x - b.getPosition().x;
-				close.y += boid.getPosition().y - b.getPosition().y;
-			}
-			else if (squaredDist < (boid.visualRange * boid.visualRange) )
-			{
-				pos_avg.x += b.getPosition().x;
-				pos_avg.y += b.getPosition().y;
-				vel_avg.x += b.Velocity.x;
-				vel_avg.y += b.Velocity.y;
-
-				neighboring++;
-			}
-		}
-
-		if (neighboring > 0)
-		{
-			close /= neighboring;
-			boid.Velocity += close * boid.avoidfactor;
-
-			pos_avg.x = pos_avg.x / neighboring;
-			pos_avg.y = pos_avg.y / neighboring;
-			vel_avg.x = vel_avg.x / neighboring;
-			vel_avg.y = vel_avg.y / neighboring;
-
-			boid.Velocity.x += (pos_avg.x - boid.getPosition().x) * boid.centeringfactor +
-				(vel_avg.x - boid.Velocity.x) * boid.matchingfactor;
-
-			boid.Velocity.y += (pos_avg.y - boid.getPosition().y) * boid.centeringfactor +
-				(vel_avg.y - boid.Velocity.y) * boid.matchingfactor;
-
-			// Normalize velocity
-			float speed = sqrt(boid.Velocity.x * boid.Velocity.x + boid.Velocity.y * boid.Velocity.y);
-			if (speed > 0) {
-				boid.Velocity.x = (boid.Velocity.x / speed) * boid.maxspeed;
-				boid.Velocity.y = (boid.Velocity.y / speed) * boid.maxspeed;
-			}
-
-		}
-		boid.move(boid.Velocity.x, boid.Velocity.y);
-		checkMargin(wind, boid);
-	}
-}
-*/
 
 int main()
 {
